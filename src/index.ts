@@ -38,6 +38,11 @@ async function init(){
       choices: versionList(pkg.version)
     },
     {
+      message: '是否要添加tag？',
+      name: 'tag',
+      type: 'confirm',
+    },
+    {
       message: '代码要合并到哪条分支上？',
       name: 'branch',
       type: 'text',
@@ -51,10 +56,11 @@ async function init(){
     },
   ])
 
-  const { version, branch } = res
+  const { version, branch, tag } = res
   console.log(`
     版本号：${version}
-    分支: ${branch}
+    是否要添加tag: ${tag}
+    需要合并的分支: ${branch}
   `);
 
   const isConfirm = await prompts([
@@ -71,9 +77,11 @@ async function init(){
 
   console.log('currentBranch', currentBranch);
   console.log('branch', branch);
-
+  
   shell.exec('git add .')
   shell.exec(`git commit -m 'chore: ${version}'`)
+
+  console.log(`git push => ${currentBranch}`);
   shell.exec(`git push -u origin ${currentBranch}`)
   
   if(currentBranch !== branch){
@@ -82,11 +90,18 @@ async function init(){
       shell.exec(`git checkout -b ${branch}`)
     }
     shell.exec(`git merge ${currentBranch}`)
+    console.log(`git push => ${branch}`);
     shell.exec(`git push -u origin ${branch}`)
-    shell.exec(`git checkout ${currentBranch}`)
   }
 
-  // console.log(shell.exec('git branch'));
+  if(tag){
+    console.log(`git tag => ${tag}`)
+    shell.exec(`git push origin ${tag}`)
+  }
+
+  if(currentBranch !== branch){
+    shell.exec(`git checkout ${currentBranch}`)
+  }
 }
 
 init().catch(err => {

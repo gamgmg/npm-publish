@@ -66,11 +66,27 @@ async function init(){
   ])
 
   if(!isConfirm.value) process.exit(1)
-
-  const currentBranch = shell.exec('git branch').stdout
+  const branchStr = shell.exec('git branch').stdout
+  const currentBranch = branchStr.slice(2, branchStr.match('\n').index)
 
   console.log('currentBranch', currentBranch);
+  console.log('branch', branch);
+
+  shell.exec('git add .')
+  shell.exec(`git commit -m 'chore: ${version}'`)
+  shell.exec(`git push -u origin ${currentBranch}`)
   
+  if(currentBranch !== branch){
+    const res = shell.exec(`git checkout ${branch}`)
+    if(res.code !== 0 && res.stderr === `error: 路径规格 '${branch}' 未匹配任何 git 已知文件\n`){
+      shell.exec(`git checkout -b ${branch}`)
+    }
+    shell.exec(`git merge ${currentBranch}`)
+    shell.exec(`git push -u origin ${branch}`)
+    shell.exec(`git checkout ${currentBranch}`)
+  }
+
+  // console.log(shell.exec('git branch'));
 }
 
 init().catch(err => {

@@ -8,7 +8,6 @@ specifiers:
   gulp: ^4.0.2
   husky: ^8.0.2
   lint-staged: ^13.1.0
-  minimist: ^1.2.7
   prettier: ^2.8.1
   prompts: ^2.4.2
   semver: ^7.3.8
@@ -16,7 +15,6 @@ specifiers:
   zx: ^7.1.1
 
 dependencies:
-  minimist: 1.2.7
   prompts: 2.4.2
   semver: 7.3.8
   shelljs: 0.8.5
@@ -1989,6 +1987,7 @@ packages:
 
   /minimist/1.2.7:
     resolution: {integrity: sha512-bzfL1YUZsP41gmu/qjrEk0Q6i2ix/cVeAhbCbqH9u3zYutS1cLg00qhrD0M2MVdCcx4Sc0UpP2eBWo9rotpq6g==}
+    dev: true
 
   /mixin-deep/1.3.2:
     resolution: {integrity: sha512-WRoDn//mXBiJ1H40rqa3vH0toePwSsGb45iInWlTySa+Uu4k3tYUSxa2v1KqAiLtvlrSzaExqS1gtk96A9zvEA==}

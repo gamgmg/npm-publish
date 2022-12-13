@@ -1,8 +1,7 @@
 {
-  "name": "version-publish",
+  "name": "@gurming/version-publish",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "这是一个发布npm包时方便地添加版本号和tag的工具",
   "bin": {
     "version-publish": "outfile.cjs"
   },

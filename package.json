@@ -1,10 +1,14 @@
 {
   "name": "@gurming/version-publish",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "这是一个发布npm包时方便地添加版本号和tag的工具",
   "bin": {
     "version-publish": "outfile.cjs"
   },
+  "repository": {
+    "url": "https://github.com/gamgmg/version-publish"
+  },
+  "homepage": "https://github.com/gamgmg/version-publish",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "zx ./scripts/build.mjs",

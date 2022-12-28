@@ -2,14 +2,14 @@
 
 import prompts from "prompts";
 import semver from "semver";
-import { readFileSync } from "fs";
+import { readFileSync, writeFileSync } from "fs";
 import path from "path";
 import shell from "shelljs";
 
 async function init() {
-  const pkg = JSON.parse(
-    readFileSync(path.resolve(__dirname, "package.json"), "utf8")
-  );
+  const pkgPath = path.resolve(process.cwd(), "package.json");
+
+  const pkg = JSON.parse(readFileSync(pkgPath, "utf8"));
 
   function versionList(version) {
     const major = semver.inc(version, "major");
@@ -67,6 +67,11 @@ async function init() {
   ]);
 
   if (!isConfirm.value) process.exit(1);
+
+  pkg.version = version;
+
+  writeFileSync(pkgPath, JSON.stringify(pkg, null, 2));
+
   const branchStr = shell.exec("git branch").stdout;
   const currentBranch = branchStr.slice(2, branchStr.match("\n").index);
 
@@ -74,7 +79,7 @@ async function init() {
   console.log("branch", branch);
 
   shell.exec("git add .");
-  shell.exec(`git commit -m 'chore: ${version}'`);
+  shell.exec(`git commit -m 'chore(release): ${version}'`);
 
   console.log(`git push => ${currentBranch}`);
   shell.exec(`git push -u origin ${currentBranch}`);

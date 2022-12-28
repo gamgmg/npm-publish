@@ -102,6 +102,8 @@ async function init() {
     shell.exec(`git push origin ${tag}`);
   }
 
+  shell.exec("npm publish");
+
   if (currentBranch !== branch) {
     shell.exec(`git checkout ${currentBranch}`);
   }

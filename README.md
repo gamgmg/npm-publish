@@ -5,7 +5,7 @@
 ## 安装
 
 ```bash
-npm install -g version-publish
+npm install -g @gurming/version-publish
 ```
 
 ## 使用
